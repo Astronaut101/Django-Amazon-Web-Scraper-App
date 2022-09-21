@@ -19,5 +19,5 @@ from scraper import views as scraper_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', scraper_views.amazon_scraped_items, name="scrape_list")
+    path('', scraper_views.home_view, name="home-view")
 ]
