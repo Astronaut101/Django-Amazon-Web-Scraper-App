@@ -1,7 +1,11 @@
+from django.views.generic import DeleteView
 from django.shortcuts import render
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 from .forms import AddLinkForm
 from .models import Link
+
 
 """
 For our home view we need to pass to the template:
@@ -10,12 +14,11 @@ For our home view we need to pass to the template:
 - number of items discounted
 - form
 - error (if exists)
+
+For our Update and Delete of our Amazon Items:
+- Update View
+- Delete View
 """
-
-
-# Create your views here.
-# def amazon_scraped_items(request):
-#     return render(request, "base.html")
 
 
 def home_view(request):
@@ -54,4 +57,17 @@ def home_view(request):
     }
 
     return render(request, 'links/main.html', context)
+
+
+def update_prices(request):
+    qs = Link.objects.all()
+    for link in qs:
+        link.save()
+    return redirect('home')
+
+
+class LinkDeleteView(DeleteView):
+    model = Link
+    template_name = 'links/confirm_del.html'
+    success_url = reverse_lazy('home')
 

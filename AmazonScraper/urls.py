@@ -16,8 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from scraper import views as scraper_views
+from scraper.views import LinkDeleteView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', scraper_views.home_view, name="home-view")
+    path('', scraper_views.home_view, name="home"),
+    path('delete/<pk>/', LinkDeleteView.as_view(), name="delete"),
+    path('update/', scraper_views.update_prices, name="update-prices"),
 ]
